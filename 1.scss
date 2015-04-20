@@ -1,0 +1,124 @@
+@mixin marPadFloat {
+margin: 0px;
+padding:0;
+float: left;
+}
+@mixin topLeft($top,$left)
+{
+	top:$top;
+	left:$left;
+}
+$white:#ffffff;
+$black:#000000;
+$gray:#f6f6f6;
+@mixin float($float)
+{
+	float:$float;
+}
+$none:none;
+#menu
+{
+	margin-top: 15px;
+	height: 50px;
+	ul
+	{
+		list-style:$none;
+		position:relative;
+		@include marPadFloat;
+		a
+		{
+			display:block;
+			color:#333;
+			text-decoration:$none;
+			font-weight:700;
+			font-size:12px;
+			line-height:32px;
+			padding:0 15px;
+		}
+
+		li
+		{
+			position:relative;
+			@include marPadFloat;
+			&.current-menu-item
+			{
+				background:#ddd
+			}
+			&:hover
+			{
+				background:$gray;
+			}
+			&:hover > ul
+			{
+				display:block
+			}
+		}
+
+
+		ul
+		{
+			display:$none;
+			position:absolute;
+			@include topLeft(100%,0);
+			background:#fff;
+			padding:0;
+
+			li
+			{
+				@include float(none);
+				width:200px
+			}
+
+			a
+			{
+				line-height:120%;
+				padding:10px 15px
+			}
+
+			ul
+			{
+				@include topLeft(0,100%);
+			}
+
+		}
+	}
+}
+
+.btn {
+	
+	display:inline-block;
+	cursor:pointer;
+	color:$white;
+	font-family:arial;
+	font-size:10px;
+	padding:12px 20px;
+	text-decoration:$none;
+	
+	&:hover {
+	text-decoration:$none;
+	}
+	&:active {
+	position:relative;
+	top:1px;
+	}
+}
+
+$Name:Gray , Warning , Yello , Blue , Green , Violet;
+$backgroundBefor: $gray , $gray ,#F7FE2E ,#2E9AFE , #40FF00 ,#FF00FF;
+$backgroundAfter: $black , red*0.9 ,#FFFF00 ,#5858FA , #3ADF00 ,#8904B1;
+$colorBefor:$black,$white*0.3,$black,none,none,none;
+$colorAfter:$white,none,none,none,none,none;
+
+@for $i from 1 through length($Name){
+  .btn#{nth($Name,$i)}
+	{
+	@extend .btn;
+	color:nth($colorBefor, $i);
+	background: nth($backgroundBefor, $i);
+	&:hover{
+		background:nth($backgroundAfter, $i);
+		color:nth($colorAfter, $i);
+	}
+}
+}
+
